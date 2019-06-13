@@ -5,8 +5,9 @@
  */
 package br.com.agenda.main;
 
-import br.com.agenda.view.TelaPrincipal;
-import javax.swing.JFrame;
+import br.com.agenda.control.TelaPrincipalControl;
+import br.com.agenda.uteis.InterfaceJanela;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,13 +19,15 @@ public class principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        TelaPrincipal telaPrincipal;
-        telaPrincipal = new TelaPrincipal();
-        telaPrincipal.setTitle("AGENDA TELEFONICA!");
-        telaPrincipal.setLocationRelativeTo(null);
-        telaPrincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        telaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        telaPrincipal.setVisible(true);
+
+        try {
+            InterfaceJanela.MudaSwingParaPadraoDoSO();
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, "ERRO");
+        }
+        TelaPrincipalControl telaPrincipal = new TelaPrincipalControl();
+        telaPrincipal.chamarTelaPrincipal();
+
     }
 
 }

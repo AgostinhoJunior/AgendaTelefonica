@@ -21,26 +21,23 @@ import java.util.List;
 public class ContatoDao extends Dao implements DaoI<Contato> {
 
     TipoContatoDao tipoContatoDao;
-    TelefoneDao telefoneDao;
 
     public ContatoDao() {
         super();
         tipoContatoDao = new TipoContatoDao();
-        telefoneDao = new TelefoneDao();
     }
 
     @Override
     public int inserir(Contato contato) {
-        String queryInsert = "INSERT INTO CONTATO (NOME, NASCIMENTO, EMAIL, FK_TELEFONE, FK_TIPOCONTATO, ATIVO) VALUES(?, ?, ?, ?, ?, ?)";
+        String queryInsert = "INSERT INTO CONTATO (NOME, NASCIMENTO, EMAIL, FK_TIPOCONTATO, ATIVO) VALUES(?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt;
             stmt = conexao.prepareStatement(queryInsert, PreparedStatement.RETURN_GENERATED_KEYS);
             stmt.setString(1, contato.getNome());
             stmt.setDate(2, new Date(contato.getNascimento().getTime()));
             stmt.setString(3, contato.getEmail());
-            stmt.setInt(4, contato.getTelefone().getId());
-            stmt.setInt(5, contato.getTipoContato().getId());
-            stmt.setBoolean(6, contato.getAtivo());
+            stmt.setInt(4, contato.getTipoContato().getId());
+            stmt.setBoolean(5, contato.getAtivo());
             ResultSet res;
             if (stmt.executeUpdate() > 0) {
                 res = stmt.getGeneratedKeys();
@@ -57,16 +54,15 @@ public class ContatoDao extends Dao implements DaoI<Contato> {
 
     @Override
     public boolean alterar(Contato contato) {
-        String queryUpdate = "UPDATE CONTATO SET nome = ?, nascimento = ?, email = ?, fk_telefone = ? , fk_tipoContato = ?, ativo = ? WHERE ID = ?";
+        String queryUpdate = "UPDATE CONTATO SET nome = ?, nascimento = ?, email = ?, fk_tipoContato = ?, ativo = ? WHERE ID = ?";
         try {
             PreparedStatement stmt = conexao.prepareStatement(queryUpdate);
             stmt.setString(1, contato.getNome());
             stmt.setDate(2, new Date(contato.getNascimento().getTime()));
             stmt.setString(3, contato.getEmail());
-            stmt.setInt(4, contato.getTelefone().getId());
-            stmt.setInt(5, contato.getTipoContato().getId());
-            stmt.setBoolean(6, contato.getAtivo());
-            stmt.setInt(7, contato.getId());
+            stmt.setInt(4, contato.getTipoContato().getId());
+            stmt.setBoolean(5, contato.getAtivo());
+            stmt.setInt(6, contato.getId());
             return stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -124,7 +120,6 @@ public class ContatoDao extends Dao implements DaoI<Contato> {
                 contato.setNome(result.getString("nome"));
                 contato.setEmail(result.getString("email"));
                 contato.setNascimento(result.getDate("nascimento"));
-                contato.setTelefone(telefoneDao.pesquisar(result.getInt("fk_telefone")));
                 contato.setTipoContato(tipoContatoDao.pesquisar(result.getInt("fk_tipoContato")));
                 contato.setAtivo(result.getBoolean("ativo"));
                 lista.add(contato);
@@ -138,7 +133,7 @@ public class ContatoDao extends Dao implements DaoI<Contato> {
 
     @Override
     public List<Contato> pesquisar(String termo) {
-        String querySelectComTermo = "SELECT * FROM CONTATO WHERE (nome LIKE ? or email LIKE ? or fk_telefone LIKE ?) and ativo = true";
+        String querySelectComTermo = "SELECT * FROM CONTATO WHERE (nome LIKE ? or email LIKE ?) and ativo = true";
         try {
             PreparedStatement stmt = conexao.prepareStatement(querySelectComTermo);
             stmt.setString(1, "%" + termo + "%");
@@ -152,7 +147,6 @@ public class ContatoDao extends Dao implements DaoI<Contato> {
                 contato.setNome(result.getString("nome"));
                 contato.setEmail(result.getString("email"));
                 contato.setNascimento(result.getDate("nascimento"));
-                contato.setTelefone(telefoneDao.pesquisar(result.getInt("fk_telefone")));
                 contato.setTipoContato(tipoContatoDao.pesquisar(result.getInt("fk_tipoContato")));
                 contato.setAtivo(result.getBoolean("ativo"));
                 lista.add(contato);
@@ -177,7 +171,6 @@ public class ContatoDao extends Dao implements DaoI<Contato> {
                 contato.setNome(result.getString("nome"));
                 contato.setEmail(result.getString("email"));
                 contato.setNascimento(result.getDate("nascimento"));
-                contato.setTelefone(telefoneDao.pesquisar(result.getInt("fk_telefone")));
                 contato.setTipoContato(tipoContatoDao.pesquisar(result.getInt("fk_tipoContato")));
                 contato.setAtivo(result.getBoolean("ativo"));
                 return contato;

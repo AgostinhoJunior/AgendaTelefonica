@@ -6,6 +6,7 @@
 package br.com.agenda.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -18,7 +19,7 @@ public class Contato {
     private Date nascimento;
     private String email;
     private TipoContato tipoContato;
-    private Telefone telefone;
+    private List<Telefone> telefone;
     private Boolean ativo;
 
     public Integer getId() {
@@ -61,13 +62,14 @@ public class Contato {
         this.tipoContato = tipoContato;
     }
 
-    public Telefone getTelefone() {
+    public List<Telefone> getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(Telefone telefones) {
-        this.telefone = telefones;
+    public void setTelefone(List<Telefone> telefone) {
+        this.telefone = telefone;
     }
+
 
     public Boolean getAtivo() {
         return ativo;

@@ -5,17 +5,22 @@
  */
 package br.com.agenda.view;
 
+import br.com.agenda.control.TelaPrincipalControl;
+
 /**
  *
  * @author ADJ-PC
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
+    TelaPrincipalControl telaPrincipalControl;
+
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
         initComponents();
+        telaPrincipalControl = new TelaPrincipalControl();
     }
 
     /**
@@ -82,6 +87,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuItemGerenciarTipoContatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/agenda/img/cardUser_32x32.png"))); // NOI18N
         menuItemGerenciarTipoContatos.setText("Tipo de Contatos");
         menuItemGerenciarTipoContatos.setToolTipText("Gerenciar Tipos De Contatos");
+        menuItemGerenciarTipoContatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemGerenciarTipoContatosActionPerformed(evt);
+            }
+        });
         jMenu2.add(menuItemGerenciarTipoContatos);
 
         menuItemVisualizarContatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/agenda/img/clientes_32x32.png"))); // NOI18N
@@ -118,6 +128,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void menuItemGerenciarContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGerenciarContatoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemGerenciarContatoActionPerformed
+
+    private void menuItemGerenciarTipoContatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGerenciarTipoContatosActionPerformed
+        telaPrincipalControl.chamarTelaTipoContatoAction();
+    }//GEN-LAST:event_menuItemGerenciarTipoContatosActionPerformed
 
     /**
      * @param args the command line arguments

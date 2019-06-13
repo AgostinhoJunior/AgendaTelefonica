@@ -32,6 +32,9 @@
                 <Property name="text" type="java.lang.String" value="Tipo de Contatos"/>
                 <Property name="toolTipText" type="java.lang.String" value="Gerenciar Tipos De Contatos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemGerenciarTipoContatosActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemVisualizarContatos">
               <Properties>

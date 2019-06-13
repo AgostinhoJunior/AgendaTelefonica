@@ -7,6 +7,9 @@ package br.com.agenda.view;
 
 import br.com.agenda.control.TelaTipoContatoControl;
 import br.com.agenda.uteis.InterfaceJanela;
+import javax.swing.JCheckBox;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -39,43 +42,47 @@ public class TelaGerenciarTipoContato extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tfNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        checkAtivo = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        tfPesquisa = new javax.swing.JTextField();
+        btDesativar = new javax.swing.JButton();
+        btSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblTipoContato = new javax.swing.JTable();
+
+        setIconifiable(true);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Gerenciar Tipo de Contato");
 
-        jTextField1.setToolTipText("Campo Nome obrigatorio");
+        tfNome.setToolTipText("Campo Nome obrigatorio");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("Nome:");
 
-        jCheckBox1.setText("Ativo");
+        checkAtivo.setText("Ativo");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/agenda/img/lupa_32x32.png"))); // NOI18N
         jLabel3.setText("Pesquisar:");
 
-        jTextField2.setToolTipText("Pesquisa por nome");
+        tfPesquisa.setToolTipText("Pesquisa por nome");
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/agenda/img/desativar_32x32.png"))); // NOI18N
-        jButton1.setText("Desativar");
-        jButton1.setBorder(null);
+        btDesativar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btDesativar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/agenda/img/desativar_32x32.png"))); // NOI18N
+        btDesativar.setText("Desativar");
+        btDesativar.setBorder(null);
+        btDesativar.setContentAreaFilled(false);
 
-        jButton3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/agenda/img/save_32x32.png"))); // NOI18N
-        jButton3.setText("Salvar");
-        jButton3.setBorder(null);
+        btSalvar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/agenda/img/save_32x32.png"))); // NOI18N
+        btSalvar.setText("Salvar");
+        btSalvar.setBorder(null);
+        btSalvar.setContentAreaFilled(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblTipoContato.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -86,7 +93,7 @@ public class TelaGerenciarTipoContato extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblTipoContato);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,21 +108,21 @@ public class TelaGerenciarTipoContato extends javax.swing.JInternalFrame {
                         .addGap(104, 104, 104)
                         .addComponent(jLabel2)
                         .addGap(8, 8, 8)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(96, 96, 96)
-                                .addComponent(jCheckBox1))
+                                .addComponent(checkAtivo))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(2, 2, 2)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1)
+                                .addComponent(btDesativar)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -131,9 +138,9 @@ public class TelaGerenciarTipoContato extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(jLabel2))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
-                .addComponent(jCheckBox1)
+                .addComponent(checkAtivo)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
@@ -141,9 +148,9 @@ public class TelaGerenciarTipoContato extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton3))))
+                            .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btDesativar)
+                            .addComponent(btSalvar))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -154,15 +161,48 @@ public class TelaGerenciarTipoContato extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JButton btDesativar;
+    private javax.swing.JButton btSalvar;
+    private javax.swing.JCheckBox checkAtivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable tblTipoContato;
+    private javax.swing.JTextField tfNome;
+    private javax.swing.JTextField tfPesquisa;
     // End of variables declaration//GEN-END:variables
+
+    public JCheckBox getCheckAtivo() {
+        return checkAtivo;
+    }
+
+    public void setCheckAtivo(JCheckBox checkAtivo) {
+        this.checkAtivo = checkAtivo;
+    }
+
+    public JTable getTblTipoContato() {
+        return tblTipoContato;
+    }
+
+    public void setTblTipoContato(JTable tblTipoContato) {
+        this.tblTipoContato = tblTipoContato;
+    }
+
+    public JTextField getTfNome() {
+        return tfNome;
+    }
+
+    public void setTfNome(JTextField tfNome) {
+        this.tfNome = tfNome;
+    }
+
+    public JTextField getTfPesquisa() {
+        return tfPesquisa;
+    }
+
+    public void setTfPesquisa(JTextField tfPesquisa) {
+        this.tfPesquisa = tfPesquisa;
+    }
+
 }
