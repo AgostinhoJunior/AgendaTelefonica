@@ -51,7 +51,7 @@ public class TipoContatoTableModel extends AbstractTableModel implements AcoesTa
     public Class<?> getColumnClass(int columnIndex) {
         switch (columnIndex) {
             case CODIGO:
-                return Integer.class;
+                return String.class;
             case NOME:
                 return String.class;
             case ATIVO:

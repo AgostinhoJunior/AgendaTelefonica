@@ -13,6 +13,7 @@ import br.com.agenda.uteis.Texto;
 import br.com.agenda.uteis.UtilTable;
 import br.com.agenda.view.TelaGerenciarTipoContato;
 import br.com.agenda.view.TelaPrincipal;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,6 +26,7 @@ public class TelaTipoContatoControl {
     private TipoContatoTableModel tipoContatoTableModel;
     private TipoContatoDao tipoContatoDao;
     private TipoContato tipoContato;
+    private Integer linhaSelecionada;
 
     public TelaTipoContatoControl() {
         tipoContatoDao = new TipoContatoDao();
@@ -53,9 +55,9 @@ public class TelaTipoContatoControl {
 
     private void redimensionarTela() {
         UtilTable.centralizarCabecalho(telaGerenciarTipoContato.getTblTipoContato());
-        UtilTable.redimensionar(telaGerenciarTipoContato.getTblTipoContato(), 0, 50);
-        UtilTable.redimensionar(telaGerenciarTipoContato.getTblTipoContato(), 1, 350);
-        UtilTable.redimensionar(telaGerenciarTipoContato.getTblTipoContato(), 2, 50);
+        UtilTable.redimensionar(telaGerenciarTipoContato.getTblTipoContato(), 0, 58);
+        UtilTable.redimensionar(telaGerenciarTipoContato.getTblTipoContato(), 1, 390);
+        UtilTable.redimensionar(telaGerenciarTipoContato.getTblTipoContato(), 2, 80);
     }
 
     private void cadastrarTipoContato() {
@@ -82,6 +84,79 @@ public class TelaTipoContatoControl {
             Mensagem.info(Texto.ERRO_CADASTRAR);
         }
         tipoContato = null;
+    }
+
+    private void alterarTipoContato() {
+        if (validarCampos()) {
+            Mensagem.info(Texto.ERRO_CADASTRAR);
+            return;
+        }
+        tipoContato.setNome(telaGerenciarTipoContato.getTfNome().getText());
+        if (telaGerenciarTipoContato.getCheckAtivo().isSelected()) {
+            tipoContato.setAtivo(true);
+        } else {
+            tipoContato.setAtivo(false);
+        }
+        Boolean alterado = tipoContatoDao.alterar(tipoContato);
+        linhaSelecionada = telaGerenciarTipoContato.getTblTipoContato().getSelectedRow();
+        if (alterado) {
+            tipoContatoTableModel.atualizar(linhaSelecionada, tipoContato);
+            limparCampos();
+            Mensagem.info(Texto.SUCESSO_EDITAR);
+        } else {
+            Mensagem.info(Texto.ERRO_EDITAR);
+        }
+        tipoContato = null;
+    }
+
+    public void gravarAction() {
+        if (tipoContato == null) {
+            cadastrarTipoContato();
+        } else {
+            alterarTipoContato();
+        }
+    }
+
+    public void desativarTipoContatoAction() {
+        int retorno = Mensagem.confirmacao(Texto.PERGUNTA_DESATIVAR);
+        if (retorno == JOptionPane.NO_OPTION) {
+            return;
+        }
+        if (retorno == JOptionPane.CLOSED_OPTION) {
+            return;
+        }
+        tipoContato = tipoContatoTableModel.pegaObjeto(telaGerenciarTipoContato.getTblTipoContato().getSelectedRow());
+        boolean deletado = tipoContatoDao.desativar(tipoContato);
+        if (deletado) {
+            tipoContatoTableModel.remover(telaGerenciarTipoContato.getTblTipoContato().getSelectedRow());
+            telaGerenciarTipoContato.getTblTipoContato().clearSelection();
+            Mensagem.info(Texto.SUCESSO_DESATIVAR);
+        } else {
+            Mensagem.erro(Texto.ERRO_DESATIVAR);
+        }
+        tipoContato = null;
+    }
+
+    public void pesquisarTipoContatoAction() {
+        List<TipoContato> tipoContatoPesquisados = tipoContatoDao.pesquisar(telaGerenciarTipoContato.getTfPesquisa().getText());
+        if (tipoContatoPesquisados == null) {
+            tipoContatoTableModel.limpar();
+            tipoContatoPesquisados = tipoContatoDao.pesquisar();
+        } else {
+            tipoContatoTableModel.limpar();
+            tipoContatoTableModel.adicionar(tipoContatoPesquisados);
+        }
+    }
+
+    public void carregarClienteAction() {
+        tipoContato = tipoContatoTableModel.pegaObjeto(telaGerenciarTipoContato.getTblTipoContato().getSelectedRow());
+        telaGerenciarTipoContato.getTfNome().setText(tipoContato.getNome());
+        if (tipoContato.getAtivo() == true) {
+            telaGerenciarTipoContato.getCheckAtivo().setSelected(true);
+        } else {
+            telaGerenciarTipoContato.getCheckAtivo().setSelected(false);
+        }
+
     }
 
     private void limparCampos() {

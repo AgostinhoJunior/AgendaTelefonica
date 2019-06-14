@@ -51,6 +51,7 @@ public class TelaGerenciarTipoContato extends javax.swing.JInternalFrame {
         btSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTipoContato = new javax.swing.JTable();
+        btVisualizar = new javax.swing.JButton();
 
         setIconifiable(true);
 
@@ -69,18 +70,33 @@ public class TelaGerenciarTipoContato extends javax.swing.JInternalFrame {
         jLabel3.setText("Pesquisar:");
 
         tfPesquisa.setToolTipText("Pesquisa por nome");
+        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfPesquisaKeyReleased(evt);
+            }
+        });
 
         btDesativar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btDesativar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/agenda/img/desativar_32x32.png"))); // NOI18N
         btDesativar.setText("Desativar");
         btDesativar.setBorder(null);
         btDesativar.setContentAreaFilled(false);
+        btDesativar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDesativarActionPerformed(evt);
+            }
+        });
 
         btSalvar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/agenda/img/save_32x32.png"))); // NOI18N
         btSalvar.setText("Salvar");
         btSalvar.setBorder(null);
         btSalvar.setContentAreaFilled(false);
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         tblTipoContato.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -95,38 +111,47 @@ public class TelaGerenciarTipoContato extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tblTipoContato);
 
+        btVisualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/agenda/img/visualizar_32x32.png"))); // NOI18N
+        btVisualizar.setText("Visualizar");
+        btVisualizar.setBorder(null);
+        btVisualizar.setContentAreaFilled(false);
+        btVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVisualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(jLabel2)
-                        .addGap(8, 8, 8)
-                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(96, 96, 96)
-                                .addComponent(checkAtivo))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(2, 2, 2)
-                                .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btDesativar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(162, 162, 162)
+                            .addComponent(jLabel1))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(54, 54, 54)
+                            .addComponent(jLabel2)
+                            .addGap(8, 8, 8)
+                            .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(96, 96, 96)
+                            .addComponent(checkAtivo))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(2, 2, 2)
+                            .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btVisualizar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btDesativar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,19 +175,37 @@ public class TelaGerenciarTipoContato extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btDesativar)
-                            .addComponent(btSalvar))))
+                            .addComponent(btSalvar)
+                            .addComponent(btVisualizar))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        tipoContatoControl.gravarAction();
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void btVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVisualizarActionPerformed
+        tipoContatoControl.carregarClienteAction();
+    }//GEN-LAST:event_btVisualizarActionPerformed
+
+    private void btDesativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDesativarActionPerformed
+        tipoContatoControl.desativarTipoContatoAction();
+    }//GEN-LAST:event_btDesativarActionPerformed
+
+    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
+        tipoContatoControl.pesquisarTipoContatoAction();
+    }//GEN-LAST:event_tfPesquisaKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btDesativar;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btVisualizar;
     private javax.swing.JCheckBox checkAtivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
