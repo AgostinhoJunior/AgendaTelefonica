@@ -66,7 +66,6 @@ public class TelaTipoContatoControl {
             return;
         }
         tipoContato = new TipoContato();
-        tipoContato.setId(Integer.MAX_VALUE);
         tipoContato.setNome(telaGerenciarTipoContato.getTfNome().getText());
         if (telaGerenciarTipoContato.getCheckAtivo().isSelected()) {
             tipoContato.setAtivo(true);

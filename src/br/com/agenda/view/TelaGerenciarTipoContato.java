@@ -70,22 +70,12 @@ public class TelaGerenciarTipoContato extends javax.swing.JInternalFrame {
         jLabel3.setText("Pesquisar:");
 
         tfPesquisa.setToolTipText("Pesquisa por nome");
-        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tfPesquisaKeyReleased(evt);
-            }
-        });
 
         btDesativar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btDesativar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/agenda/img/desativar_32x32.png"))); // NOI18N
         btDesativar.setText("Desativar");
         btDesativar.setBorder(null);
         btDesativar.setContentAreaFilled(false);
-        btDesativar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btDesativarActionPerformed(evt);
-            }
-        });
 
         btSalvar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/agenda/img/save_32x32.png"))); // NOI18N
@@ -192,14 +182,6 @@ public class TelaGerenciarTipoContato extends javax.swing.JInternalFrame {
     private void btVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVisualizarActionPerformed
         tipoContatoControl.carregarClienteAction();
     }//GEN-LAST:event_btVisualizarActionPerformed
-
-    private void btDesativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDesativarActionPerformed
-        tipoContatoControl.desativarTipoContatoAction();
-    }//GEN-LAST:event_btDesativarActionPerformed
-
-    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
-        tipoContatoControl.pesquisarTipoContatoAction();
-    }//GEN-LAST:event_tfPesquisaKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
