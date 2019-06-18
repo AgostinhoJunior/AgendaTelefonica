@@ -11,7 +11,7 @@ import br.com.agenda.model.tablemodel.TipoContatoTableModel;
 import br.com.agenda.uteis.Mensagem;
 import br.com.agenda.uteis.Texto;
 import br.com.agenda.uteis.UtilTable;
-import br.com.agenda.view.TelaGerenciarTipoContato;
+import br.com.agenda.view.TelaTipoContatoGerenciar;
 import br.com.agenda.view.TelaPrincipal;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  */
 public class TelaTipoContatoControl {
 
-    private TelaGerenciarTipoContato telaGerenciarTipoContato = null;
+    private TelaTipoContatoGerenciar telaGerenciarTipoContato = null;
     private TipoContatoTableModel tipoContatoTableModel;
     private TipoContatoDao tipoContatoDao;
     private TipoContato tipoContato;
@@ -35,7 +35,7 @@ public class TelaTipoContatoControl {
 
     public void chamarTelaGerenciarTipoContato() {
         if (telaGerenciarTipoContato == null) { // se tiver nulo chama janela normalmente
-            telaGerenciarTipoContato = new TelaGerenciarTipoContato(this);
+            telaGerenciarTipoContato = new TelaTipoContatoGerenciar(this);
             TelaPrincipal.desktopPane.add(telaGerenciarTipoContato);
             telaGerenciarTipoContato.setVisible(true);
         } else {//se ele estiver criado
@@ -155,7 +155,6 @@ public class TelaTipoContatoControl {
         } else {
             telaGerenciarTipoContato.getCheckAtivo().setSelected(false);
         }
-
     }
 
     private void limparCampos() {

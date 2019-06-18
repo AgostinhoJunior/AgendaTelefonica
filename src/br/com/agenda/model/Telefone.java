@@ -12,32 +12,24 @@ package br.com.agenda.model;
 public class Telefone {
 
     private Integer id;
-    private String Ddd;
-    private String numero;
+    private Integer Ddd;
+    private Integer numero;
     private Contato contato;
 
-    public String getDdd() {
+    public Integer getDdd() {
         return Ddd;
     }
 
-    public void setDdd(String Ddd) {
+    public void setDdd(Integer Ddd) {
         this.Ddd = Ddd;
     }
 
-    public String getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
-    }
-
-    public Contato getContato() {
-        return contato;
-    }
-
-    public void setContato(Contato contato) {
-        this.contato = contato;
     }
 
     public Integer getId() {
@@ -48,8 +40,17 @@ public class Telefone {
         this.id = id;
     }
 
+    public Contato getContato() {
+        return contato;
+    }
+
+    public void setContato(Contato contato) {
+        this.contato = contato;
+    }
+
     @Override
     public String toString() {
         return "Telefone{" + "id=" + id + ", Ddd=" + Ddd + ", numero=" + numero + ", contato=" + contato + '}';
     }
+
 }

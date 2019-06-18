@@ -15,18 +15,18 @@ import javax.swing.JTextField;
  *
  * @author ADJ-PC
  */
-public class TelaGerenciarTipoContato extends javax.swing.JInternalFrame {
+public class TelaTipoContatoGerenciar extends javax.swing.JInternalFrame {
 
     TelaTipoContatoControl tipoContatoControl;
 
     /**
      * Creates new form TelaGerenciarTipoContato
      */
-    public TelaGerenciarTipoContato() {
+    public TelaTipoContatoGerenciar() {
         initComponents();
     }
 
-    public TelaGerenciarTipoContato(TelaTipoContatoControl control) {
+    public TelaTipoContatoGerenciar(TelaTipoContatoControl control) {
         initComponents();
         tipoContatoControl = control;
         InterfaceJanela.centralizarInternalFrame(this);
@@ -99,6 +99,12 @@ public class TelaGerenciarTipoContato extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblTipoContato.setToolTipText("2 cliques sobre a linha para editar");
+        tblTipoContato.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTipoContatoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblTipoContato);
 
         btVisualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/agenda/img/visualizar_32x32.png"))); // NOI18N
@@ -182,6 +188,12 @@ public class TelaGerenciarTipoContato extends javax.swing.JInternalFrame {
     private void btVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVisualizarActionPerformed
         tipoContatoControl.carregarClienteAction();
     }//GEN-LAST:event_btVisualizarActionPerformed
+
+    private void tblTipoContatoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTipoContatoMouseClicked
+        if (evt.getClickCount() == 2) {
+            tipoContatoControl.carregarClienteAction();
+        }
+    }//GEN-LAST:event_tblTipoContatoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

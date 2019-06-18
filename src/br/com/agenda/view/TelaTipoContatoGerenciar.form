@@ -188,7 +188,11 @@
                 <Column editable="true" title="Title 4" type="java.lang.Object"/>
               </Table>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="2 cliques sobre a linha para editar"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblTipoContatoMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

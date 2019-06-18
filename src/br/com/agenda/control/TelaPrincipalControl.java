@@ -16,9 +16,9 @@ public class TelaPrincipalControl {
 
     TelaPrincipal telaPrincipal;
     private TelaTipoContatoControl telaTipoContatoControl = null;
+    private TelaContatoControl telaContatoControl = null;
 
     public TelaPrincipalControl() {
-
     }
 
     public void chamarTelaPrincipal() {
@@ -36,6 +36,15 @@ public class TelaPrincipalControl {
         } else {
             telaTipoContatoControl = new TelaTipoContatoControl();
             telaTipoContatoControl.chamarTelaGerenciarTipoContato();
+        }
+    }
+
+    public void chamarTelaContatoAction() {
+        if (telaContatoControl != null) {
+            telaContatoControl.chamarTelaGerenciarTipoContato();
+        } else {
+            telaContatoControl = new TelaContatoControl();
+            telaContatoControl.chamarTelaGerenciarTipoContato();
         }
     }
 }

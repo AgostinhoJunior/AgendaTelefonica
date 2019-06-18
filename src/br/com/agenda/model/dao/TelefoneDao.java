@@ -32,8 +32,8 @@ public class TelefoneDao extends Dao implements DaoI<Telefone> {
         try {
             PreparedStatement stmt;
             stmt = conexao.prepareStatement(queryInsert, PreparedStatement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, telefone.getDdd());
-            stmt.setString(2, telefone.getNumero());
+            stmt.setInt(1, telefone.getDdd());
+            stmt.setInt(2, telefone.getNumero());
             stmt.setInt(3, telefone.getContato().getId());
             ResultSet res;
             if (stmt.executeUpdate() > 0) {
@@ -51,11 +51,11 @@ public class TelefoneDao extends Dao implements DaoI<Telefone> {
 
     @Override
     public boolean alterar(Telefone telefone) {
-        String queryUpdate = "UPDATE TELEFONE SET DDD = ?, NUMERO = ?, FK_CONTATO = ?  WHERE ID = ?";
+        String queryUpdate = "UPDATE TELEFONE SET DDD = ?, NUMERO = ?, FK_CONTATO = ? WHERE ID = ?";
         try {
             PreparedStatement stmt = conexao.prepareStatement(queryUpdate);
-            stmt.setString(1, telefone.getDdd());
-            stmt.setString(2, telefone.getNumero());
+            stmt.setInt(1, telefone.getDdd());
+            stmt.setInt(2, telefone.getNumero());
             stmt.setInt(3, telefone.getContato().getId());
             stmt.setInt(4, telefone.getId());
             return stmt.executeUpdate() > 0;
@@ -112,8 +112,8 @@ public class TelefoneDao extends Dao implements DaoI<Telefone> {
             while (result.next()) {
                 Telefone cliente = new Telefone();
                 cliente.setId(result.getInt("id"));
-                cliente.setDdd(result.getString("ddd"));
-                cliente.setNumero(result.getString("numero"));
+                cliente.setDdd(Integer.valueOf(result.getString("ddd")));
+                cliente.setNumero(Integer.valueOf(result.getString("numero")));
                 cliente.setContato(contatoDao.pesquisar(result.getInt("fk_contato")));
                 lista.add(cliente);
             }
@@ -136,8 +136,8 @@ public class TelefoneDao extends Dao implements DaoI<Telefone> {
             while (result.next()) {
                 Telefone cliente = new Telefone();
                 cliente.setId(result.getInt("id"));
-                cliente.setDdd(result.getString("ddd"));
-                cliente.setNumero(result.getString("numero"));
+                cliente.setDdd(Integer.valueOf(result.getString("ddd")));
+                cliente.setNumero(Integer.valueOf(result.getString("numero")));
                 cliente.setContato(contatoDao.pesquisar(result.getInt("fk_contato")));
                 lista.add(cliente);
             }
@@ -158,8 +158,8 @@ public class TelefoneDao extends Dao implements DaoI<Telefone> {
             if (result.next()) {
                 Telefone cliente = new Telefone();
                 cliente.setId(result.getInt("id"));
-                cliente.setDdd(result.getString("ddd"));
-                cliente.setNumero(result.getString("numero"));
+                cliente.setDdd(Integer.valueOf(result.getString("ddd")));
+                cliente.setNumero(Integer.valueOf(result.getString("numero")));
                 cliente.setContato(contatoDao.pesquisar(result.getInt("fk_contato")));
                 return cliente;
             } else {

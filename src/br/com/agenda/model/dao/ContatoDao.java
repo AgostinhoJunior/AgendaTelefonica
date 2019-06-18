@@ -29,7 +29,7 @@ public class ContatoDao extends Dao implements DaoI<Contato> {
 
     @Override
     public int inserir(Contato contato) {
-        String queryInsert = "INSERT INTO CONTATO (NOME, NASCIMENTO, EMAIL, FK_TIPOCONTATO, ATIVO) VALUES(?, ?, ?, ?, ?, ?)";
+        String queryInsert = "INSERT INTO CONTATO (NOME, NASCIMENTO, EMAIL, FK_TIPOCONTATO, ATIVO) VALUES(?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt;
             stmt = conexao.prepareStatement(queryInsert, PreparedStatement.RETURN_GENERATED_KEYS);

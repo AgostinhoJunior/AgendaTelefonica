@@ -126,7 +126,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemGerenciarContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGerenciarContatoActionPerformed
-        // TODO add your handling code here:
+        telaPrincipalControl.chamarTelaContatoAction();
     }//GEN-LAST:event_menuItemGerenciarContatoActionPerformed
 
     private void menuItemGerenciarTipoContatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGerenciarTipoContatosActionPerformed
