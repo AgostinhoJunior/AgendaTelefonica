@@ -138,7 +138,6 @@ public class ContatoDao extends Dao implements DaoI<Contato> {
             PreparedStatement stmt = conexao.prepareStatement(querySelectComTermo);
             stmt.setString(1, "%" + termo + "%");
             stmt.setString(2, "%" + termo + "%");
-            stmt.setString(3, "%" + termo + "%");
             ResultSet result = stmt.executeQuery();
             List<Contato> lista = new ArrayList<>();
             while (result.next()) {

@@ -84,15 +84,18 @@ public class TelaContatoControl {
         telefone.setNumero(Integer.valueOf(telaContatoGerenciar.getTfNumero().getText()));
         listTelefones.add(telefone);
         telefoneTableModel.adicionar(telefone);
+        telaContatoGerenciar.getTfDdd().setText(null);
+        telaContatoGerenciar.getTfNumero().setText(null);
         telefone = null;
     }
 
-    public void removeTelefoneAction() {
-        int retorno = Mensagem.confirmacao(Texto.PERGUNTA_REMOVER_ITEM_ENTRADA);
+    public void removeTelefoneAction() throws Exception {
+        int retorno = Mensagem.confirmacao(Texto.PERGUNTA_REMOVER_TELEFONE);
         if (retorno == JOptionPane.NO_OPTION) {
             return;
         }
         telefone = telefoneTableModel.pegaObjeto(telaContatoGerenciar.getTblTelefone().getSelectedRow());
+        telefoneDao.deletar(telefone);
         listTelefones.remove(telefone);
         telefoneTableModel.remover(telaContatoGerenciar.getTblTelefone().getSelectedRow());
         Mensagem.info(Texto.SUCESSO_REMOVER);
@@ -100,7 +103,7 @@ public class TelaContatoControl {
 
     }
 
-    public void adicionaContatoAction() throws Exception {
+    private void cadastrarContato() throws Exception {
         contato = new Contato();
         contato.setEmail(telaContatoGerenciar.getTfEmail().getText());
         contato.setNascimento(UtilDate.dataUsuarioParaBanco(telaContatoGerenciar.getTfNascimento().getText()));
@@ -121,8 +124,113 @@ public class TelaContatoControl {
         for (int i = 0; i < listTelefones.size(); i++) {
             Telefone umTelefoneEntrada = listTelefones.get(i);
             umTelefoneEntrada.setContato(contato);
+            umTelefoneEntrada.setContato(contato);
+            telefoneDao.inserir(umTelefoneEntrada);
+        }
+        limparCampos();
+        contato = null;
+    }
+
+    public void carregaContatoAction() throws Exception {
+        contato = contatoTableModel.pegaObjeto(telaContatoGerenciar.getTblContato().getSelectedRow());
+        telaContatoGerenciar.getTfNome().setText(contato.getNome());
+        telaContatoGerenciar.getTfEmail().setText(contato.getEmail());
+        telaContatoGerenciar.getTfNascimento().setText(UtilDate.data(contato.getNascimento()));
+        telefoneTableModel.adicionar(telefoneDao.pesquisarTelefoneContatos(contato));
+        if (contato.getAtivo() == true) {
+            telaContatoGerenciar.getCheckAtivo().setSelected(true);
+        } else {
+            telaContatoGerenciar.getCheckAtivo().setSelected(false);
+        }
+
+        telaContatoGerenciar.getTpContato().setEnabledAt(0, false); // disabilita o tabbed pane
+        telaContatoGerenciar.getTpContato().setSelectedIndex(1); // seleciona o tabbed pane
+        telaContatoGerenciar.getTfNome().requestFocus();
+
+    }
+
+    public void gravarContatoAction() throws Exception {
+        if (contato == null) {
+            cadastrarContato();
+            telaContatoGerenciar.getTpContato().setSelectedIndex(0); // seleciona o tabbed pane
+        } else {
+            alterarContato();
+            telaContatoGerenciar.getTpContato().setEnabledAt(0, true);
+            telaContatoGerenciar.getTpContato().setSelectedIndex(0);
+        }
+    }
+
+    private void alterarContato() {
+        contato.setEmail(telaContatoGerenciar.getTfEmail().getText());
+        contato.setNascimento(UtilDate.dataUsuarioParaBanco(telaContatoGerenciar.getTfNascimento().getText()));
+        contato.setNome(telaContatoGerenciar.getTfNome().getText());
+        contato.setTipoContato((TipoContato) telaContatoGerenciar.getCbTipoContato().getSelectedItem());
+        contato.setTelefone(listTelefones);
+        if (telaContatoGerenciar.getCheckAtivo().isSelected()) {
+            contato.setAtivo(true);
+        } else {
+            contato.setAtivo(false);
+        }
+
+        boolean alterado = contatoDao.alterar(contato);
+        linhaSelecionada = telaContatoGerenciar.getTblContato().getSelectedRow();
+        if (alterado) {
+            contatoTableModel.atualizar(linhaSelecionada, contato);
+            Mensagem.info(Texto.SUCESSO_EDITAR);
+        } else {
+            Mensagem.erro(Texto.ERRO_EDITAR);
+        }
+        for (int i = 0; i < listTelefones.size(); i++) {
+            Telefone umTelefoneEntrada = listTelefones.get(i);
+            umTelefoneEntrada.setContato(contato);
             telefoneDao.inserir(umTelefoneEntrada);
         }
 
+        limparCampos();
+        contato = null;
+    }
+
+    public void desativarContatoAction() {
+        int retorno = Mensagem.confirmacao(Texto.PERGUNTA_DESATIVAR);
+        if (retorno == JOptionPane.NO_OPTION) {
+            return;
+        }
+        if (retorno == JOptionPane.CLOSED_OPTION) {
+            return;
+        }
+        contato = contatoTableModel.pegaObjeto(telaContatoGerenciar.getTblContato().getSelectedRow());
+        boolean deletado = contatoDao.desativar(contato);
+        if (deletado) {
+            contatoTableModel.remover(telaContatoGerenciar.getTblContato().getSelectedRow());
+            telaContatoGerenciar.getTblContato().clearSelection();
+            Mensagem.info(Texto.SUCESSO_DESATIVAR);
+        } else {
+            Mensagem.erro(Texto.ERRO_DESATIVAR);
+        }
+        contato = null;
+    }
+
+    public void pesquisarContatoAction() {
+        List<Contato> contatosPesquisados = contatoDao.pesquisar(telaContatoGerenciar.getTfPesquisa().getText());
+        if (contatosPesquisados == null) {
+            contatoTableModel.limpar();
+            contatosPesquisados = contatoDao.pesquisar();
+        } else {
+            contatoTableModel.limpar();
+            contatoTableModel.adicionar(contatosPesquisados);
+        }
+
+    }
+
+    private void limparCampos() {
+        telaContatoGerenciar.getTfDdd().setText(null);
+        telaContatoGerenciar.getTfEmail().setText(null);
+        telaContatoGerenciar.getTfNascimento().setText(null);
+        telaContatoGerenciar.getTfNome().setText(null);
+        telaContatoGerenciar.getTfNumero().setText(null);
+        telaContatoGerenciar.getTfPesquisa().setText(null);
+        telaContatoGerenciar.getCheckAtivo().setSelected(false);
+        telaContatoGerenciar.getCbTipoContato().setSelectedIndex(0);
+        telefoneTableModel.limpar();
     }
 }

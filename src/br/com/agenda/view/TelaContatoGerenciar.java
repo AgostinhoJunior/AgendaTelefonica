@@ -10,9 +10,11 @@ import br.com.agenda.model.TipoContato;
 import br.com.agenda.uteis.InterfaceJanela;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -51,7 +53,7 @@ public class TelaContatoGerenciar extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
+        tpContato = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblContato = new javax.swing.JTable();
@@ -136,15 +138,34 @@ public class TelaContatoGerenciar extends javax.swing.JInternalFrame {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/agenda/img/lupa_32x32.png"))); // NOI18N
         jLabel8.setText("Pesquisar:");
 
+        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfPesquisaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfPesquisaKeyReleased(evt);
+            }
+        });
+
         btVisualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/agenda/img/visualizar_32x32.png"))); // NOI18N
         btVisualizar.setText("Visualizar");
         btVisualizar.setBorder(null);
         btVisualizar.setContentAreaFilled(false);
+        btVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVisualizarActionPerformed(evt);
+            }
+        });
 
         btDesativar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/agenda/img/desativar_32x32.png"))); // NOI18N
         btDesativar.setText("Desativar");
         btDesativar.setBorder(null);
         btDesativar.setContentAreaFilled(false);
+        btDesativar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDesativarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -176,7 +197,7 @@ public class TelaContatoGerenciar extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane2.addTab("Listar Contatos", jPanel5);
+        tpContato.addTab("Listar Contatos", jPanel5);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("CADASTRO DE TELEFONES:"));
         jPanel2.setLayout(new java.awt.GridBagLayout());
@@ -354,21 +375,21 @@ public class TelaContatoGerenciar extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane2.addTab("Cadastrar Contatos", jPanel6);
+        tpContato.addTab("Cadastrar Contatos", jPanel6);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(tpContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(tpContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -379,16 +400,40 @@ public class TelaContatoGerenciar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btAddTelefoneTableActionPerformed
 
     private void btRemoveTelTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoveTelTableActionPerformed
-        telaContatoControl.removeTelefoneAction();
+        try {
+            telaContatoControl.removeTelefoneAction();
+        } catch (Exception ex) {
+            Logger.getLogger(TelaContatoGerenciar.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btRemoveTelTableActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
-            telaContatoControl.adicionaContatoAction();
+            telaContatoControl.gravarContatoAction();
         } catch (Exception ex) {
             Logger.getLogger(TelaContatoGerenciar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVisualizarActionPerformed
+        try {
+            telaContatoControl.carregaContatoAction();
+        } catch (Exception ex) {
+            Logger.getLogger(TelaContatoGerenciar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btVisualizarActionPerformed
+
+    private void btDesativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDesativarActionPerformed
+        telaContatoControl.desativarContatoAction();
+    }//GEN-LAST:event_btDesativarActionPerformed
+
+    private void tfPesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfPesquisaKeyPressed
+
+    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
+        telaContatoControl.pesquisarContatoAction();
+    }//GEN-LAST:event_tfPesquisaKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -414,7 +459,6 @@ public class TelaContatoGerenciar extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tblContato;
     private javax.swing.JTable tblTelefone;
@@ -424,14 +468,23 @@ public class TelaContatoGerenciar extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfNumero;
     private javax.swing.JTextField tfPesquisa;
+    private javax.swing.JTabbedPane tpContato;
     // End of variables declaration//GEN-END:variables
 
     public JComboBox<TipoContato> getCbTipoContato() {
         return cbTipoContato;
     }
 
-    public void setCbTipoContato(JComboBox<TipoContato> comboTipoContato) {
-        this.cbTipoContato = comboTipoContato;
+    public void setCbTipoContato(JComboBox<TipoContato> cbTipoContato) {
+        this.cbTipoContato = cbTipoContato;
+    }
+
+    public JTable getTblContato() {
+        return tblContato;
+    }
+
+    public void setTblContato(JTable tblContato) {
+        this.tblContato = tblContato;
     }
 
     public JTable getTblTelefone() {
@@ -442,8 +495,20 @@ public class TelaContatoGerenciar extends javax.swing.JInternalFrame {
         this.tblTelefone = tblTelefone;
     }
 
+    public JTextField getTfDdd() {
+        return tfDdd;
+    }
+
+    public void setTfDdd(JTextField tfDdd) {
+        this.tfDdd = tfDdd;
+    }
+
     public JTextField getTfEmail() {
         return tfEmail;
+    }
+
+    public void setTfEmail(JTextField tfEmail) {
+        this.tfEmail = tfEmail;
     }
 
     public JFormattedTextField getTfNascimento() {
@@ -454,24 +519,12 @@ public class TelaContatoGerenciar extends javax.swing.JInternalFrame {
         this.tfNascimento = tfNascimento;
     }
 
-    public void setTfEmail(JTextField tfEmail) {
-        this.tfEmail = tfEmail;
-    }
-
     public JTextField getTfNome() {
         return tfNome;
     }
 
     public void setTfNome(JTextField tfNome) {
         this.tfNome = tfNome;
-    }
-
-    public JTextField getTfDdd() {
-        return tfDdd;
-    }
-
-    public void setTfDdd(JTextField tfDdd) {
-        this.tfDdd = tfDdd;
     }
 
     public JTextField getTfNumero() {
@@ -482,7 +535,6 @@ public class TelaContatoGerenciar extends javax.swing.JInternalFrame {
         this.tfNumero = tfNumero;
     }
 
-
     public JTextField getTfPesquisa() {
         return tfPesquisa;
     }
@@ -491,12 +543,12 @@ public class TelaContatoGerenciar extends javax.swing.JInternalFrame {
         this.tfPesquisa = tfPesquisa;
     }
 
-    public JTable getTblContato() {
-        return tblContato;
+    public JTabbedPane getTpContato() {
+        return tpContato;
     }
 
-    public void setTblContato(JTable tblContato) {
-        this.tblContato = tblContato;
+    public void setTpContato(JTabbedPane tpContato) {
+        this.tpContato = tpContato;
     }
 
     public JCheckBox getCheckAtivo() {

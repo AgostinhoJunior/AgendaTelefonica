@@ -50,7 +50,7 @@ public class Texto {
 
     public static final String PERGUNTA_EDITAR = "Você deseja Realmente editar ";
 
-    public static final String PERGUNTA_REMOVER_ITEM_ENTRADA = "Você deseja remover este item da lista de Entrada?";
+    public static final String PERGUNTA_REMOVER_TELEFONE = "Você deseja remover este item da lista de Entrada?";
 
     public static final String PERGUNTA_REMOVER_ITEM_VENDA = "Você deseja remover este item da lista de Venda?";
 

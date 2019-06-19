@@ -6,10 +6,12 @@
 package br.com.agenda.model.dao;
 
 import br.com.agenda.interfaces.DaoI;
+import br.com.agenda.model.Contato;
 import br.com.agenda.model.Telefone;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,12 +112,12 @@ public class TelefoneDao extends Dao implements DaoI<Telefone> {
             ResultSet result = stmt.executeQuery();
             List<Telefone> lista = new ArrayList<>();
             while (result.next()) {
-                Telefone cliente = new Telefone();
-                cliente.setId(result.getInt("id"));
-                cliente.setDdd(Integer.valueOf(result.getString("ddd")));
-                cliente.setNumero(Integer.valueOf(result.getString("numero")));
-                cliente.setContato(contatoDao.pesquisar(result.getInt("fk_contato")));
-                lista.add(cliente);
+                Telefone telefone = new Telefone();
+                telefone.setId(result.getInt("id"));
+                telefone.setDdd(Integer.valueOf(result.getString("ddd")));
+                telefone.setNumero(Integer.valueOf(result.getString("numero")));
+                telefone.setContato(contatoDao.pesquisar(result.getInt("fk_contato")));
+                lista.add(telefone);
             }
             return lista;
         } catch (SQLException ex) {
@@ -134,12 +136,12 @@ public class TelefoneDao extends Dao implements DaoI<Telefone> {
             ResultSet result = stmt.executeQuery();
             List<Telefone> lista = new ArrayList<>();
             while (result.next()) {
-                Telefone cliente = new Telefone();
-                cliente.setId(result.getInt("id"));
-                cliente.setDdd(Integer.valueOf(result.getString("ddd")));
-                cliente.setNumero(Integer.valueOf(result.getString("numero")));
-                cliente.setContato(contatoDao.pesquisar(result.getInt("fk_contato")));
-                lista.add(cliente);
+                Telefone telefone = new Telefone();
+                telefone.setId(result.getInt("id"));
+                telefone.setDdd(Integer.valueOf(result.getString("ddd")));
+                telefone.setNumero(Integer.valueOf(result.getString("numero")));
+                telefone.setContato(contatoDao.pesquisar(result.getInt("fk_contato")));
+                lista.add(telefone);
             }
             return lista;
         } catch (SQLException ex) {
@@ -156,12 +158,12 @@ public class TelefoneDao extends Dao implements DaoI<Telefone> {
             stmt.setInt(1, id);
             ResultSet result = stmt.executeQuery();
             if (result.next()) {
-                Telefone cliente = new Telefone();
-                cliente.setId(result.getInt("id"));
-                cliente.setDdd(Integer.valueOf(result.getString("ddd")));
-                cliente.setNumero(Integer.valueOf(result.getString("numero")));
-                cliente.setContato(contatoDao.pesquisar(result.getInt("fk_contato")));
-                return cliente;
+                Telefone telefone = new Telefone();
+                telefone.setId(result.getInt("id"));
+                telefone.setDdd(Integer.valueOf(result.getString("ddd")));
+                telefone.setNumero(Integer.valueOf(result.getString("numero")));
+                telefone.setContato(contatoDao.pesquisar(result.getInt("fk_contato")));
+                return telefone;
             } else {
                 return null;
             }
@@ -171,4 +173,36 @@ public class TelefoneDao extends Dao implements DaoI<Telefone> {
         }
     }
 
+    public List<Telefone> pesquisarTelefoneContatos(Contato contato) {
+        String querySelectPorId = "SELECT * FROM TELEFONE WHERE FK_CONTATO = ?";
+        try {
+            List<Telefone> telefones = new ArrayList<>();
+            PreparedStatement stmt = conexao.prepareStatement(querySelectPorId);
+            stmt.setInt(1, contato.getId());
+            ResultSet result = stmt.executeQuery();
+            while (result.next()) {
+                Telefone telefone = new Telefone();
+                telefone.setId(result.getInt("id"));
+                telefone.setDdd(Integer.valueOf(result.getString("ddd")));
+                telefone.setNumero(Integer.valueOf(result.getString("numero")));
+                telefone.setContato(contatoDao.pesquisar(result.getInt("fk_contato")));
+                telefones.add(telefone);
+            }
+            return telefones;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+
+    public boolean excluirTelefoneContatos(Integer id) throws Exception {
+        String querySelectPorId = "DELETE FROM TELEFONE WHERE FK_CONTATO = ?";
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(querySelectPorId);
+            stmt.setInt(1, id);
+            int executeUpdate = stmt.executeUpdate();
+            return executeUpdate != 0;
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
 }
